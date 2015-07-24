@@ -1,14 +1,14 @@
-console.log('configuring application');
-var blogName = "distinguishedrebeltrash";
-var maxNumberOfPosts = 30; // keep this low...
-var maxNumberOfTags = 10; // keep this low...
-var supportedPostTypes = [ 'photo', 'quote', 'text', 'link', 'chat', 'audio', 'video' ];
-
 console.log('including dependencies');
 // Authenticate via OAuth
 var tumblr = require('tumblr.js');
 var faker = require('faker');
 var dotenv = require('dotenv').load();
+
+console.log('configuring application');
+var blogName = process.env.BLOG_NAME;
+var maxNumberOfPosts = 30; // keep this low...
+var maxNumberOfTags = 10; // keep this low...
+var supportedPostTypes = [ 'photo', 'quote', 'text', 'link', 'chat', 'audio', 'video' ];
 
 console.log('preparing oauth');
 var client = tumblr.createClient({
@@ -21,17 +21,32 @@ var client = tumblr.createClient({
 console.log('connected');
 var numberOfPosts = Math.floor(Math.random() * maxNumberOfPosts);
 for (var i = 0; i < numberOfPosts; i++) {
-  var type = supportedPostTypes[Math.floor(supportedPostTypes.length * Math.random())];
+	var type = supportedPostTypes[Math.floor(supportedPostTypes.length * Math.random())];
 	submit(type);
 }
 console.log('The end.');
 
+/**
+ * Submit
+ *
+ * Send a random post of the specified type to the blog
+ *
+ * @param type
+ */
 function submit(type) {
 	var options = getOptions(type);
 	console.log('submitting ' + type + ' post: ' + JSON.stringify(options, null, 4));
 	client[type](blogName, options);
 }
 
+/**
+ * Get Options
+ *
+ * Generates the random post content, given a type
+ *
+ * @param type
+ * @returns {*}
+ */
 function getOptions(type) {
 	var options = {
 		type: type,
