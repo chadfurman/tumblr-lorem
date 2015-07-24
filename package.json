@@ -1,0 +1,16 @@
+{
+  "name": "tumblr-lorem",
+  "version": "0.0.1",
+  "description": "Lorem Ipsum Post Generator for Tumblr",
+  "main": "tumblrLorem.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "faker": "^3.0.0",
+    "tumblr.js": "0.0.5"
+  }
+}
